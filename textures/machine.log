@@ -25,6 +25,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	WARNING: mesh, Circle, has 0 vertices; ignored
 	processing begun of mesh:  Cube.004
 		processing begun of material:  Material.004
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -34,6 +36,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  12
 	processing begun of mesh:  Cube.003
 		processing begun of material:  Material.005
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -43,6 +47,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  12
 	processing begun of mesh:  Cube.001
 		processing begun of material:  Material.007
+			processing texture Concrete_1749
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -52,6 +58,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  12
 	processing begun of mesh:  Cube.007
 		processing begun of material:  Material.008
+			processing texture Concrete_1749
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -60,7 +68,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Cylinder
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.058
+			processing texture metal_4453
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  642
 		num normals        :  642
 		num tangents       :  0
@@ -70,6 +80,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  256
 	processing begun of mesh:  Cube.008
 		processing begun of material:  Material.010
+			processing texture Concrete_1749
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -78,7 +90,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Cylinder.001
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.059
+			processing texture metal_4453
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  642
 		num normals        :  642
 		num tangents       :  0
@@ -88,6 +102,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  256
 	processing begun of mesh:  Cube.002
 		processing begun of material:  Material.011
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -97,6 +113,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  12
 	processing begun of mesh:  Cube.005
 		processing begun of material:  Material.012
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -111,6 +129,14 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		processing begun of material:  Material.047
 		processing begun of material:  Material.045
 		processing begun of material:  Material.044
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		processing begun of multimaterial:  machine.Multimaterial#0
 		num positions      :  120
 		num normals        :  120
@@ -120,7 +146,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  48
 	processing begun of mesh:  Cube.012
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.060
+			processing texture BrickWall_4535
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  117
 		num normals        :  117
 		num tangents       :  0
@@ -129,7 +157,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  48
 	processing begun of mesh:  Cube.009
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.061
+			processing texture BrickWall_4535
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  117
 		num normals        :  117
 		num tangents       :  0
@@ -138,7 +168,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  48
 	processing begun of mesh:  Cube.011
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.062
+			processing texture BrickWall_4535
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  117
 		num normals        :  117
 		num tangents       :  0
@@ -148,6 +180,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  48
 	processing begun of mesh:  Cube.013
 		processing begun of material:  Material.048
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
 		num tangents       :  0
@@ -175,4 +209,4 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cube.013
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.1029 secs
+elapsed time:  0 min, 0.12 secs
