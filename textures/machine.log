@@ -189,6 +189,33 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  12
+	processing begun of mesh:  Cylinder.003
+		WARNING: No materials have been assigned: 
+		num positions      :  1025
+		num normals        :  1025
+		num tangents       :  0
+		num uvs            :  2050
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  384
+	processing begun of mesh:  Plane
+		WARNING: No materials have been assigned: 
+		num positions      :  4
+		num normals        :  4
+		num tangents       :  0
+		num uvs            :  8
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  2
+	processing begun of mesh:  Cylinder.002
+		WARNING: No materials have been assigned: 
+		num positions      :  4958
+		num normals        :  4958
+		num tangents       :  0
+		num uvs            :  9916
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1792
 	processing begun of light (POINT):  Light
 	processing begun of light (POINT):  Light.001
 	processing begun of light (POINT):  Light.002
@@ -207,6 +234,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cube.009
 	writing mesh:  Cube.011
 	writing mesh:  Cube.013
+	writing mesh:  Cylinder.003
+	writing mesh:  Plane
+	writing mesh:  Cylinder.002
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.12 secs
+elapsed time:  0 min, 0.3017 secs
