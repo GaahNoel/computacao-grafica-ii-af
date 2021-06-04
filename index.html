@@ -82,24 +82,56 @@
             const ventiMesh = new BABYLON.Mesh("ventiMesh", scene);
 
             var vent = BABYLON.SceneLoader.ImportMesh("", "textures/", "venti.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
-                console.log(newMeshes);
                 newMeshes.forEach(mesh => {
                     mesh.position.y=50;
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
                     if(!mesh.name.includes("Cylinder"))
                     ventiMesh.addChild(mesh);
-                    if(mesh.name == "Sphere")
-                    camera.target = mesh;
                 })
             })
 
-            setInterval(()=>{
-                const sphere = BABYLON.Mesh.CreateSphere(`sphere`, 32, 2, scene);
-                sphere.position.x = 10;
-                sphere.position.y = 70;
-                sphere.position.z = 15;
-                sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:20, friction:.001, restitution:0.5 }, scene);
-            }, 1000)
+            const principalCircle = new BABYLON.Mesh("principalCircle", scene);
+            const pine =  new BABYLON.Mesh("pine", scene);
+
+            var circle = BABYLON.SceneLoader.ImportMesh("", "textures/", "circle.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                newMeshes.forEach(mesh => {
+                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                    camera.target = mesh;
+
+                    if(mesh.name === 'Pino') {
+                        pine.addChild(mesh);
+                        principalCircle.addChild(pine);
+                    }
+                    else {
+                        principalCircle.addChild(mesh);
+                    }
+                })
+                principalCircle.position.y = -80;
+                principalCircle.position.z = 100;
+                principalCircle.position.x = -10;
+            });
+
+            const cup =  new BABYLON.Mesh("cup", scene);
+            var plasticCup = BABYLON.SceneLoader.ImportMesh("", "textures/", "plastic-cup.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                newMeshes.forEach(mesh => {
+                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                    camera.target = mesh;
+                    cup.addChild(mesh);
+                })
+                cup.position.y = -120;
+                cup.position.z = 110;
+                cup.position.x = -20;
+                cup.scaling = new BABYLON.Vector3(10,10,10)
+            })
+
+
+            // setInterval(()=>{
+            //     const sphere = BABYLON.Mesh.CreateSphere(`sphere`, 32, 2, scene);
+            //     sphere.position.x = 10;
+            //     sphere.position.y = 70;
+            //     sphere.position.z = 15;
+            //     sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:20, friction:.001, restitution:0.5 }, scene);
+            // }, 1000)
 
 
             const firstGround = BABYLON.MeshBuilder.CreateBox("box", { width:20, height: 2, depth: 30 }, scene);
@@ -231,9 +263,15 @@
             engine.runRenderLoop(function () {
                 if (sceneToRender && sceneToRender.activeCamera) {
                     let ventiMesh = scene.getMeshByID("ventiMesh");
+                    let pineMesh = scene.getMeshByID("pine");
+
                     if(ventiMesh){
                         ventiMesh.rotation.y += 0.03;
                     }
+                    if(pineMesh) {
+                        pineMesh.rotation.y += 0.02
+                    }
+
                     sceneToRender.render();
                 }
             });
