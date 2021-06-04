@@ -30,10 +30,30 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  136
+	processing begun of mesh:  Cube
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  Cube.001
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
 	processing begun of light (POINT):  Light
 ========= Writing of JSON file started =========
 	writing mesh:  Prato
 	writing mesh:  Pino
+	writing mesh:  Cube
+	writing mesh:  Cube.001
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.057 secs
+elapsed time:  0 min, 0.042 secs

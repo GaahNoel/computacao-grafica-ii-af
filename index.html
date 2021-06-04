@@ -96,7 +96,6 @@
             var circle = BABYLON.SceneLoader.ImportMesh("", "textures/", "circle.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 newMeshes.forEach(mesh => {
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                    camera.target = mesh;
 
                     if(mesh.name === 'Pino') {
                         pine.addChild(mesh);
@@ -111,17 +110,20 @@
                 principalCircle.position.x = -10;
             });
 
+            const sphere3 = BABYLON.Mesh.CreateSphere(`sphere10`, 32, 2, scene);
+            sphere3.position = new BABYLON.Vector3(-15, -70, 95)
+            sphere3.physicsImpostor = new BABYLON.PhysicsImpostor(sphere3, BABYLON.PhysicsImpostor.SphereImpostor, { mass:5, friction:.001, restitution:0.5 }, scene);        
+
+
             const cup =  new BABYLON.Mesh("cup", scene);
             var plasticCup = BABYLON.SceneLoader.ImportMesh("", "textures/", "plastic-cup.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 newMeshes.forEach(mesh => {
+                    mesh.position.y = -135;
+                    mesh.position.z = 115;
+                    mesh.position.x = -15;
+                    mesh.scaling = new BABYLON.Vector3(20,10,20);
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                    camera.target = mesh;
-                    cup.addChild(mesh);
                 })
-                cup.position.y = -120;
-                cup.position.z = 110;
-                cup.position.x = -20;
-                cup.scaling = new BABYLON.Vector3(10,10,10)
             })
 
 
@@ -164,7 +166,7 @@
         
             firstGround.physicsImpostor = new BABYLON.PhysicsImpostor(firstGround, BABYLON.PhysicsImpostor.BoxImpostor, { mass:0, friction:0.5 }, scene);
             sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:5, friction:.001, restitution:0.5 }, scene);
-            //camera.target = sphere;
+            camera.target = sphere;
         	var g = new BABYLON.Vector3(0, -2, 0);
 
             var dominoSphere = BABYLON.Mesh.CreateSphere("sphere2", 32, 2, scene);
@@ -269,7 +271,7 @@
                         ventiMesh.rotation.y += 0.03;
                     }
                     if(pineMesh) {
-                        pineMesh.rotation.y += 0.02
+                        pineMesh.rotation.y += 0.005;
                     }
 
                     sceneToRender.render();
