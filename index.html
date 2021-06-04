@@ -45,6 +45,8 @@
         var scene = null;
         var sceneToRender = null;
         var camera = null;
+        var contLadoDaBolinha = 0;
+        var posAux;
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
         var createScene = function () {
             
@@ -80,6 +82,7 @@
             })
 
             const ventiMesh = new BABYLON.Mesh("ventiMesh", scene);
+            const pranchaMesh = new BABYLON.Mesh("pranchaMesh", scene);
 
             var vent = BABYLON.SceneLoader.ImportMesh("", "textures/", "venti.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 newMeshes.forEach(mesh => {
@@ -110,9 +113,21 @@
                 principalCircle.position.x = -10;
             });
 
-            const sphere3 = BABYLON.Mesh.CreateSphere(`sphere10`, 32, 2, scene);
-            sphere3.position = new BABYLON.Vector3(-15, -70, 95)
-            sphere3.physicsImpostor = new BABYLON.PhysicsImpostor(sphere3, BABYLON.PhysicsImpostor.SphereImpostor, { mass:5, friction:.001, restitution:0.5 }, scene);        
+            var prancha = BABYLON.SceneLoader.ImportMesh("", "textures/", "prancha.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                console.log(newMeshes);
+                newMeshes.forEach(mesh => {
+                    mesh.position.y=150;
+                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                    if(mesh.name.includes("Prancha"))
+                    pranchaMesh.addChild(mesh);
+                    if(mesh.name.includes("Prancha"))
+                    camera.target = mesh;
+                })
+            })
+
+            // const sphere3 = BABYLON.Mesh.CreateSphere(`sphere10`, 32, 2, scene);
+            // sphere3.position = new BABYLON.Vector3(-15, -70, 95)
+            // sphere3.physicsImpostor = new BABYLON.PhysicsImpostor(sphere3, BABYLON.PhysicsImpostor.SphereImpostor, { mass:5, friction:.001, restitution:0.5 }, scene);        
 
 
             const cup =  new BABYLON.Mesh("cup", scene);
@@ -127,13 +142,20 @@
             })
 
 
-            // setInterval(()=>{
-            //     const sphere = BABYLON.Mesh.CreateSphere(`sphere`, 32, 2, scene);
-            //     sphere.position.x = 10;
-            //     sphere.position.y = 70;
-            //     sphere.position.z = 15;
-            //     sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:20, friction:.001, restitution:0.5 }, scene);
-            // }, 1000)
+            setInterval(()=>{
+                contLadoDaBolinha++;
+                const sphere = BABYLON.Mesh.CreateSphere(`sphere`, 32, 2, scene);
+                sphere.position.y = 155;
+                if(contLadoDaBolinha%2==0)
+                    posAux = 2;
+                else
+                    posAux = -2;
+
+                sphere.position.x = posAux;
+                sphere.position.z = posAux;
+
+                sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:20, friction:.001, restitution:0.5 }, scene);
+            }, 1500)
 
 
             const firstGround = BABYLON.MeshBuilder.CreateBox("box", { width:20, height: 2, depth: 30 }, scene);
@@ -266,12 +288,16 @@
                 if (sceneToRender && sceneToRender.activeCamera) {
                     let ventiMesh = scene.getMeshByID("ventiMesh");
                     let pineMesh = scene.getMeshByID("pine");
+                    let pranchaMesh = scene.getMeshByID("pranchaMesh");
 
                     if(ventiMesh){
                         ventiMesh.rotation.y += 0.03;
                     }
                     if(pineMesh) {
                         pineMesh.rotation.y += 0.005;
+                    }
+                    if(pranchaMesh){
+                        pranchaMesh.rotation.y += 0.05;
                     }
 
                     sceneToRender.render();
