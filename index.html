@@ -76,6 +76,15 @@
 
             //scene.debugLayer.show();
 
+            // Skybox
+        	var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
+        	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+        	skyboxMaterial.backFaceCulling = false;
+        	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
+        	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        	skyboxMaterial.disableLighting = true;
+        	skybox.material = skyboxMaterial;		
+
             var path = BABYLON.SceneLoader.ImportMesh("", "textures/", "machine.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 //newMeshes[0].position.y = 20;
                 newMeshes.forEach(mesh => {
@@ -86,13 +95,16 @@
                         scene.registerBeforeRender(()=>{
                             let domino3 = scene.getMeshById("Domino3");
                             if(domino3 && mesh.intersectsMesh(domino3, true) && !changeCamera){
+                                console.log(mesh);
                                 camera.target = mesh;
-                                camera.position = BABYLON.Vector3(mesh.position.x+10, mesh.position.y+10, mesh.position.z+10)
+                                camera.position = new BABYLON.Vector3(mesh.position.x+20, mesh.position.y+20, mesh.position.z+20);
                                 changeCamera = true;
+                                let principalSphere = scene.getMeshById("principalSphere");
+                                principalSphere.dispose();
                             }
                         })
                     } else if(mesh.name.includes("Domino")){
-                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass:15, friction: 50, restitution:0.1 }, scene);                    
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass:15, friction: 50, restitution:1 }, scene);                    
                     } else if(mesh.name.includes("dominoGround")){
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass:0, friction:0.001 }, scene);
                     } else if(mesh.name.includes("Toma")){
@@ -181,6 +193,7 @@
                     if(mesh.name.includes("Prancha")){
                         pranchaMesh.addChild(mesh);
                         camera.target = mesh;
+                        camera.position = new BABYLON.Vector3(mesh.position.x+70, mesh.position.y+150, mesh.position.z+10)
                     }
                     
                 })
@@ -238,7 +251,7 @@
                 sphere.position.x = posAux;
                 sphere.position.z = posAux;
 
-                sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:100, friction:.001, restitution:0 }, scene);
+                sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:200, friction:.001, restitution:0 }, scene);
 
                 spheres.push(sphere);
             }, 1500)
