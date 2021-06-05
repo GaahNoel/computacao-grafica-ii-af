@@ -9,7 +9,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		Vert Color Precision:  3
 		Mat Weight Precision:  2
 		Keep Z-up r-handed  :  no
-		Texture directory   :  F:\Faculdade\Computação gráfica - II\AF\AF\textures\
+		Texture directory   :  C:\Users\Gustavo\Documents\FACENS\7° Sem\Computação Gráfica II\AF\computacao-grafica-ii-af-main\textures\
 	Python World class constructor completed
 	WARNING: The following object (type - CURVE) is not currently exportable thus ignored: BezierCircle
 	processing begun of camera (UniversalCamera):  Camera
@@ -26,6 +26,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.004
 		processing begun of material:  Material.004
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
@@ -37,6 +39,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.003
 		processing begun of material:  Material.005
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
@@ -48,6 +52,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.001
 		processing begun of material:  Material.007
 			processing texture Concrete_1749
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Concrete-1749.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
@@ -59,28 +65,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.007
 		processing begun of material:  Material.008
 			processing texture Concrete_1749
-				texture type:  diffuseTexture, mapped using: "UVMap"
-		num positions      :  30
-		num normals        :  30
-		num tangents       :  0
-		num uvs            :  60
-		num uvs2           :  0
-		num colors         :  0
-		num triangles      :  12
-	processing begun of mesh:  Cylinder
-		processing begun of material:  Material.058
-			processing texture metal_4453
-				texture type:  diffuseTexture, mapped using: "UVMap"
-		num positions      :  642
-		num normals        :  642
-		num tangents       :  0
-		num uvs            :  1284
-		num uvs2           :  0
-		num colors         :  0
-		num triangles      :  256
-	processing begun of mesh:  Cube.008
-		processing begun of material:  Material.010
-			processing texture Concrete_1749
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Concrete-1749.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
@@ -92,6 +78,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cylinder.001
 		processing begun of material:  Material.059
 			processing texture metal_4453
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\metal_4453.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  642
 		num normals        :  642
@@ -103,6 +91,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.002
 		processing begun of material:  Material.011
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
@@ -114,6 +104,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.005
 		processing begun of material:  Material.012
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  30
 		num normals        :  30
@@ -130,12 +122,20 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		processing begun of material:  Material.045
 		processing begun of material:  Material.044
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		processing begun of multimaterial:  machine.Multimaterial#0
 		num positions      :  120
@@ -148,6 +148,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.012
 		processing begun of material:  Material.060
 			processing texture BrickWall_4535
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\BrickWall-4535.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  117
 		num normals        :  117
@@ -159,6 +161,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.009
 		processing begun of material:  Material.061
 			processing texture BrickWall_4535
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\BrickWall-4535.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  117
 		num normals        :  117
@@ -170,6 +174,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	processing begun of mesh:  Cube.011
 		processing begun of material:  Material.062
 			processing texture BrickWall_4535
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\BrickWall-4535.jpg'
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  117
 		num normals        :  117
@@ -178,17 +184,6 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  48
-	processing begun of mesh:  Cube.013
-		processing begun of material:  Material.048
-			processing texture Brick_1301
-				texture type:  diffuseTexture, mapped using: "UVMap"
-		num positions      :  30
-		num normals        :  30
-		num tangents       :  0
-		num uvs            :  60
-		num uvs2           :  0
-		num colors         :  0
-		num triangles      :  12
 	processing begun of mesh:  Cylinder.003
 		WARNING: No materials have been assigned: 
 		num positions      :  1025
@@ -198,15 +193,6 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  384
-	processing begun of mesh:  Plane
-		WARNING: No materials have been assigned: 
-		num positions      :  4
-		num normals        :  4
-		num tangents       :  0
-		num uvs            :  8
-		num uvs2           :  0
-		num colors         :  0
-		num triangles      :  2
 	processing begun of mesh:  Cylinder.002
 		WARNING: No materials have been assigned: 
 		num positions      :  4958
@@ -216,6 +202,82 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  1792
+	processing begun of mesh:  dominoGround
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  DominoSphere
+		WARNING: No materials have been assigned: 
+		num positions      :  2594
+		num normals        :  2594
+		num tangents       :  0
+		num uvs            :  5188
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  960
+	processing begun of mesh:  Domino1
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  Domino2
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  Domino3
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  Cube.006
+		processing begun of material:  Material.001
+			processing texture Brick_1301
+				WARNING: Exception during copy:
+					[Errno 2] No such file or directory: 'C:\\Users\\Gustavo\\Documents\\FACENS\\7° Sem\\Computação Gráfica II\\AF\\AF\\textures\\Brick-1301.jpg'
+				texture type:  diffuseTexture, mapped using: "UVMap"
+		num positions      :  30
+		num normals        :  30
+		num tangents       :  0
+		num uvs            :  60
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  Empurra
+		WARNING: No materials have been assigned: 
+		num positions      :  309
+		num normals        :  309
+		num tangents       :  0
+		num uvs            :  618
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  124
+	processing begun of mesh:  BotaoToma
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
 	processing begun of light (POINT):  Light
 	processing begun of light (POINT):  Light.001
 	processing begun of light (POINT):  Light.002
@@ -224,8 +286,6 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cube.003
 	writing mesh:  Cube.001
 	writing mesh:  Cube.007
-	writing mesh:  Cylinder
-	writing mesh:  Cube.008
 	writing mesh:  Cylinder.001
 	writing mesh:  Cube.002
 	writing mesh:  Cube.005
@@ -233,10 +293,16 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cube.012
 	writing mesh:  Cube.009
 	writing mesh:  Cube.011
-	writing mesh:  Cube.013
 	writing mesh:  Cylinder.003
-	writing mesh:  Plane
 	writing mesh:  Cylinder.002
+	writing mesh:  dominoGround
+	writing mesh:  DominoSphere
+	writing mesh:  Domino1
+	writing mesh:  Domino2
+	writing mesh:  Domino3
+	writing mesh:  Cube.006
+	writing mesh:  Empurra
+	writing mesh:  BotaoToma
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.3017 secs
+elapsed time:  0 min, 0.4018 secs

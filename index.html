@@ -46,6 +46,13 @@
         var sceneToRender = null;
         var camera = null;
         var contLadoDaBolinha = 0;
+        var isSpinning=true;
+        var tackle = false;
+        var pressed = false;
+        var changeCamera = false;
+        var porta1InitPosition;
+        var porta2InitPosition;
+        var empurraInitPosition;
         var posAux;
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
         var createScene = function () {
@@ -57,33 +64,58 @@
             camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 3, 50, BABYLON.Vector3.Zero(), scene);
                 
         	camera.attachControl(canvas, true);
-            var gravityVector = new BABYLON.Vector3(0,-20, 0);
 
         	scene.enablePhysics();
-
         
             // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
         
             light.intensity = 0.7;
-        
-            var sphere = BABYLON.Mesh.CreateSphere("sphere1", 32, 2, scene);
 
-            sphere.position.y = 30;
-            sphere.position.x =0;
-            sphere.position.z =-15;
+            var alturaInicial = 240;
+
             //scene.debugLayer.show();
 
             var path = BABYLON.SceneLoader.ImportMesh("", "textures/", "machine.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 //newMeshes[0].position.y = 20;
                 newMeshes.forEach(mesh => {
-                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                    mesh.position.z+=40;
+                    mesh.position.y+=5.8;
+                    if(mesh.name.includes("Sphere")) {
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.SphereImpostor, { mass:40, friction:.001, restitution:0.5 }, scene);
+                        scene.registerBeforeRender(()=>{
+                            let domino3 = scene.getMeshById("Domino3");
+                            if(domino3 && mesh.intersectsMesh(domino3, true) && !changeCamera){
+                                camera.target = mesh;
+                                camera.position = BABYLON.Vector3(mesh.position.x+10, mesh.position.y+10, mesh.position.z+10)
+                                changeCamera = true;
+                            }
+                        })
+                    } else if(mesh.name.includes("Domino")){
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass:15, friction: 50, restitution:0.1 }, scene);                    
+                    } else if(mesh.name.includes("dominoGround")){
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass:0, friction:0.001 }, scene);
+                    } else if(mesh.name.includes("Toma")){
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshById("principalSphere");
+                            if(principalSphere && mesh.intersectsMesh(principalSphere, true) && !tackle){
+                                tackle = true;
+                            }
+                        })
+                    } else if(mesh.name.includes("Empurra")){
+                        empurraInitPosition=mesh.position.z;
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.SphereImpostor, { mass:0, friction:.001, restitution:0.5 }, scene);
+                    }
+                    else {
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
+                    }
                 })
             })
 
             const ventiMesh = new BABYLON.Mesh("ventiMesh", scene);
             const ventiMesh2 = new BABYLON.Mesh("ventiMesh2", scene);
             const pranchaMesh = new BABYLON.Mesh("pranchaMesh", scene);
+            const botaoMesh = new BABYLON.Mesh("botaoMesh", scene);
             
 
             let contCamada = 0;
@@ -92,9 +124,21 @@
                 
                 console.log(newMeshes);
                 newMeshes.forEach(mesh => {
-                    mesh.position.y+=120;
-                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                    if(!mesh.name.includes("Cylinder")){
+                    mesh.position.y+=alturaInicial-30;
+                    if(mesh.name.includes("Trigger")){
+                        mesh.isVisible = false;
+                        scene.registerBeforeRender(()=>{
+                            spheres.forEach(sphere =>{
+                                if(mesh.intersectsMesh(sphere, true)) {
+                                    sphere.dispose();
+                                    sphere.setEnabled(false);
+                                }
+                            })
+                        }) 
+                    }
+                    else
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                    if(!mesh.name.includes("Cylinder") && !mesh.name.includes("Trigger")){
                         if(contCamada%2 == 0)
                             ventiMesh.addChild(mesh);
                         else
@@ -103,6 +147,10 @@
                     }
                 })
             })
+
+            var tampaFiltro = BABYLON.Mesh.CreateBox("tampaFiltro", 5, scene);
+            tampaFiltro.position.y = alturaInicial-178;
+            tampaFiltro.isVisible = false;
 
             const principalCircle = new BABYLON.Mesh("principalCircle", scene);
             const pine =  new BABYLON.Mesh("pine", scene);
@@ -119,20 +167,44 @@
                         principalCircle.addChild(mesh);
                     }
                 })
-                principalCircle.position.y = -80;
-                principalCircle.position.z = 130;
-                principalCircle.position.x = -10;
+                principalCircle.position.y = -85;
+                principalCircle.position.z = 115;
+                principalCircle.position.x = -18;
+                camera.target=principalCircle;
             });
 
             var prancha = BABYLON.SceneLoader.ImportMesh("", "textures/", "prancha.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 console.log(newMeshes);
                 newMeshes.forEach(mesh => {
-                    mesh.position.y=150;
+                    mesh.position.y=240;
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                    if(mesh.name.includes("Prancha"))
-                    pranchaMesh.addChild(mesh);
-                    if(mesh.name.includes("Prancha"))
-                    camera.target = mesh;
+                    if(mesh.name.includes("Prancha")){
+                        pranchaMesh.addChild(mesh);
+                        camera.target = mesh;
+                    }
+                    
+                })
+            })
+
+            var rampaComBotao = BABYLON.SceneLoader.ImportMesh("", "textures/", "rampaComBotao.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                newMeshes.forEach(mesh => {
+                    console.log(newMeshes);
+                    mesh.position.y+=alturaInicial-210;
+                    if(mesh.name.includes("Botao")){
+                        botaoMesh.addChild(mesh);
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshByID("principalSphere");
+                            if(principalSphere && !pressed && mesh.intersectsMesh(principalSphere, true)){
+                                pressed = true;
+                            }
+                        })
+                    }else{
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                        if(mesh.name === "Porta1")
+                            porta1InitPosition = mesh.position.x;
+                        if(mesh.name === "Porta2")
+                            porta2InitPosition = mesh.position.x;
+                    }   
                 })
             })
 
@@ -145,18 +217,19 @@
             var plasticCup = BABYLON.SceneLoader.ImportMesh("", "textures/", "plastic-cup.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 newMeshes.forEach(mesh => {
                     mesh.position.y = -135;
-                    mesh.position.z = 115;
-                    mesh.position.x = -15;
+                    mesh.position.z = 125;
+                    mesh.position.x = -25;
                     mesh.scaling = new BABYLON.Vector3(20,10,20);
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
                 })
             })
 
+            const spheres = [];
 
-            setInterval(()=>{
+            var spawnSphereInit = setInterval(()=>{
                 contLadoDaBolinha++;
                 const sphere = BABYLON.Mesh.CreateSphere(`sphere`, 32, 2, scene);
-                sphere.position.y = 155;
+                sphere.position.y = alturaInicial+5;
                 if(contLadoDaBolinha%2==0)
                     posAux = 2;
                 else
@@ -165,48 +238,10 @@
                 sphere.position.x = posAux;
                 sphere.position.z = posAux;
 
-                sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:20, friction:.001, restitution:0.5 }, scene);
-            }, 1500)
+                sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:100, friction:.001, restitution:0 }, scene);
 
-
-            const firstGround = BABYLON.MeshBuilder.CreateBox("box", { width:20, height: 2, depth: 30 }, scene);
-            firstGround.position.y = -60.8;
-            firstGround.position.x = -15;
-            firstGround.position.z = 40.6;
-
-            const spheres = [];
-
-            for(let i = 0 ; i < 3 ; i++) {
-                const sphere = BABYLON.Mesh.CreateSphere(`sphere-${i}`, 32, 2, scene);
-
-                sphere.position.y = 1.72;
-                sphere.position.x =0;
-                sphere.position.z = -2 + i* 3;
-                sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:5, friction:.001, restitution:0.5 }, scene);        
                 spheres.push(sphere);
-            }
-
-            const dominos = [];
-
-            for(let i =0 ;i < 5; i ++) {
-                const domino = BABYLON.MeshBuilder.CreateBox(`domino-${i}`, { width:5, height: 5, depth: 1 }, scene);
-                domino.position.y = -55.8;
-                domino.position.x =-15;
-                domino.position.z = 28.6 + i * 4;
-                domino.physicsImpostor = new BABYLON.PhysicsImpostor(domino, BABYLON.PhysicsImpostor.BoxImpostor, { mass:1, friction:0.001 }, scene);
-                dominos.push(domino);
-            }
-        
-            firstGround.physicsImpostor = new BABYLON.PhysicsImpostor(firstGround, BABYLON.PhysicsImpostor.BoxImpostor, { mass:0, friction:0.5 }, scene);
-            sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:5, friction:.001, restitution:0.5 }, scene);
-            camera.target = sphere;
-        	var g = new BABYLON.Vector3(0, -2, 0);
-
-            var dominoSphere = BABYLON.Mesh.CreateSphere("sphere2", 32, 2, scene);
-            dominoSphere.position.y = dominos[dominos.length - 1].position.y;
-            dominoSphere.position.x = dominos[dominos.length - 1].position.x;
-            dominoSphere.position.z = dominos[dominos.length - 1].position.z + 8;
-            dominoSphere.physicsImpostor = new BABYLON.PhysicsImpostor(dominoSphere, BABYLON.PhysicsImpostor.SphereImpostor, { mass:2, friction:0.5, restitution:0 }, scene);
+            }, 1500)
 
         	// scene.onPointerUp = function () {
         	// 	g.y *= -1;
@@ -214,14 +249,23 @@
         	// }
 
 
-            // scene.registerBeforeRender(() => {
-            //     if(dominoSphere.intersectsMesh(dominos[dominos.length - 1], true)) {
-            //         camera.target = dominoSphere;
-            //     }
-            //     if(spheres[spheres.length - 1].intersectsMesh(spheres[spheres.length - 2])) {
-            //         camera.target = spheres[spheres.length - 1]
-            //     }
-            // })
+            scene.registerBeforeRender(() => {
+                spheres.forEach(sphere => {
+                    if(tampaFiltro.intersectsMesh(sphere, true)){
+                        isSpinning = false;
+                        clearInterval(spawnSphereInit);
+                        camera.target = sphere;
+                        camera.position = new BABYLON.Vector3(sphere.position.x + 20, sphere.position.y + 20, sphere.position.z + 20);
+                        sphere.id = "principalSphere";
+                        spheres.forEach(filteredSphere =>{
+                            if(filteredSphere.id!=="principalSphere")
+                                filteredSphere.dispose();
+                        })
+                        
+                    }
+                })
+
+            })
         
             return scene;
         
@@ -299,18 +343,36 @@
                 if (sceneToRender && sceneToRender.activeCamera) {
                     let ventiMesh1 = scene.getMeshByID("ventiMesh");
                     let ventiMesh2 = scene.getMeshByID("ventiMesh2");
+
                     let pineMesh = scene.getMeshByID("pine");
+
                     let pranchaMesh = scene.getMeshByID("pranchaMesh");
 
-                    if(ventiMesh1 && ventiMesh2){
+                    let porta1 = scene.getMeshById("Porta1");
+                    let porta2 = scene.getMeshById("Porta2");
+
+                    let empurra = scene.getMeshById("Empurra");
+
+                    if(ventiMesh1 && ventiMesh2 && isSpinning){
                         ventiMesh1.rotation.y += 0.1;
                         ventiMesh2.rotation.y -= 0.1;
+                    }
+                    if(porta1 && porta2 && pressed){
+                        if(porta1InitPosition && porta1.position.x < porta1InitPosition+5)
+                            porta1.position.x += 0.05;
+                        if(porta2InitPosition && porta2.position.x > porta2InitPosition-5)
+                            porta2.position.x -= 0.05;
                     }
                     if(pineMesh) {
                         pineMesh.rotation.y += 0.005;
                     }
                     if(pranchaMesh){
                         pranchaMesh.rotation.y += 0.05;
+                    }
+
+                    if(empurra && tackle){
+                        if(empurraInitPosition && empurra.position.z < empurraInitPosition+8)
+                            empurra.position.z += 0.1;
                     }
 
                     sceneToRender.render();

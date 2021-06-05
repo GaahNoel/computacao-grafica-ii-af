@@ -76,6 +76,51 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  384
+	processing begun of mesh:  DisposeTrigger2
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  DisposeTrigger3
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  DisposeTrigger4
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  DisposeTrigger1
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  DisposeTrigger5
+		WARNING: No materials have been assigned: 
+		num positions      :  29
+		num normals        :  29
+		num tangents       :  0
+		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
 ========= Writing of JSON file started =========
 	writing mesh:  Cylinder
 	writing mesh:  Camada2
@@ -84,6 +129,11 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Camada3
 	writing mesh:  Cylinder.003
 	writing mesh:  Cylinder.001
+	writing mesh:  DisposeTrigger2
+	writing mesh:  DisposeTrigger3
+	writing mesh:  DisposeTrigger4
+	writing mesh:  DisposeTrigger1
+	writing mesh:  DisposeTrigger5
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 5.3935 secs
+elapsed time:  0 min, 6.4807 secs
