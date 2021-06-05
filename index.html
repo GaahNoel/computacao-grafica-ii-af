@@ -82,14 +82,25 @@
             })
 
             const ventiMesh = new BABYLON.Mesh("ventiMesh", scene);
+            const ventiMesh2 = new BABYLON.Mesh("ventiMesh2", scene);
             const pranchaMesh = new BABYLON.Mesh("pranchaMesh", scene);
+            
+
+            let contCamada = 0;
 
             var vent = BABYLON.SceneLoader.ImportMesh("", "textures/", "venti.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                
+                console.log(newMeshes);
                 newMeshes.forEach(mesh => {
-                    mesh.position.y=50;
+                    mesh.position.y+=120;
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                    if(!mesh.name.includes("Cylinder"))
-                    ventiMesh.addChild(mesh);
+                    if(!mesh.name.includes("Cylinder")){
+                        if(contCamada%2 == 0)
+                            ventiMesh.addChild(mesh);
+                        else
+                            ventiMesh2.addChild(mesh);
+                        contCamada++;
+                    }
                 })
             })
 
@@ -109,7 +120,7 @@
                     }
                 })
                 principalCircle.position.y = -80;
-                principalCircle.position.z = 100;
+                principalCircle.position.z = 130;
                 principalCircle.position.x = -10;
             });
 
@@ -286,12 +297,14 @@
             sceneToRender = scene;        
             engine.runRenderLoop(function () {
                 if (sceneToRender && sceneToRender.activeCamera) {
-                    let ventiMesh = scene.getMeshByID("ventiMesh");
+                    let ventiMesh1 = scene.getMeshByID("ventiMesh");
+                    let ventiMesh2 = scene.getMeshByID("ventiMesh2");
                     let pineMesh = scene.getMeshByID("pine");
                     let pranchaMesh = scene.getMeshByID("pranchaMesh");
 
-                    if(ventiMesh){
-                        ventiMesh.rotation.y += 0.03;
+                    if(ventiMesh1 && ventiMesh2){
+                        ventiMesh1.rotation.y += 0.1;
+                        ventiMesh2.rotation.y -= 0.1;
                     }
                     if(pineMesh) {
                         pineMesh.rotation.y += 0.005;

@@ -1,0 +1,89 @@
+Exporter version: 2.80.1, Blender version: 2.92.0
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  C:\Users\Gustavo\Documents\FACENS\7° Sem\Computação Gráfica II\AF\computacao-grafica-ii-af-main\textures\
+	Python World class constructor completed
+	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
+	processing begun of mesh:  Cylinder
+		WARNING: No materials have been assigned: 
+		num positions      :  642
+		num normals        :  642
+		num tangents       :  0
+		num uvs            :  1284
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  256
+	processing begun of mesh:  Camada2
+		WARNING: No materials have been assigned: 
+		num positions      :  44648
+		num normals        :  44648
+		num tangents       :  0
+		num uvs            :  89296
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  16320
+	processing begun of mesh:  Camada1
+		WARNING: No materials have been assigned: 
+		num positions      :  44648
+		num normals        :  44648
+		num tangents       :  0
+		num uvs            :  89296
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  16320
+	processing begun of mesh:  Camada4
+		WARNING: No materials have been assigned: 
+		num positions      :  44648
+		num normals        :  44648
+		num tangents       :  0
+		num uvs            :  89296
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  16320
+	processing begun of mesh:  Camada3
+		WARNING: No materials have been assigned: 
+		num positions      :  44648
+		num normals        :  44648
+		num tangents       :  0
+		num uvs            :  89296
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  16320
+	processing begun of mesh:  Cylinder.003
+		WARNING: No materials have been assigned: 
+		num positions      :  2039
+		num normals        :  2039
+		num tangents       :  0
+		num uvs            :  4078
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1152
+		WARNING: # of 0 area faces found:  640
+	processing begun of mesh:  Cylinder.001
+		WARNING: No materials have been assigned: 
+		num positions      :  1025
+		num normals        :  1025
+		num tangents       :  0
+		num uvs            :  2050
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  384
+========= Writing of JSON file started =========
+	writing mesh:  Cylinder
+	writing mesh:  Camada2
+	writing mesh:  Camada1
+	writing mesh:  Camada4
+	writing mesh:  Camada3
+	writing mesh:  Cylinder.003
+	writing mesh:  Cylinder.001
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 5.3935 secs
