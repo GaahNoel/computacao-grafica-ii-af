@@ -47,7 +47,11 @@
         var camera = null;
         var contLadoDaBolinha = 0;
         var isSpinning=true;
-        
+
+        var escada1Trigger = false;
+        var escada2Trigger = false;
+        var escada3Trigger = false;
+
         var tackle = false;
         var firstTouchTackle = false;
 
@@ -60,6 +64,13 @@
 
         var pathArr = [];
         var objPositionOfCameraInit;
+
+        const colors = [
+            new BABYLON.Color3(0, 1, 1),
+            new BABYLON.Color3(1, 0, 0),
+            new BABYLON.Color3(1, 0.5, 0),
+        ];
+        var material;
 
         var spawnSphereInit;
 
@@ -133,8 +144,43 @@
                     } else if(mesh.name.includes("Empurra")){
                         empurraInitPosition=mesh.position.z;
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.SphereImpostor, { mass:0, friction:.001, restitution:0.5 }, scene);
-                    }
-                    else {
+                    } else if(mesh.name.includes("Escada1")){
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshById("principalSphere");
+                            if(principalSphere && mesh.intersectsMesh(principalSphere, true) && !escada1Trigger){
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                                escada1Trigger = true;
+                            }
+                        })
+                    }else if(mesh.name.includes("Escada2")){
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshById("principalSphere");
+                            if(principalSphere && mesh.intersectsMesh(principalSphere, true) && !escada2Trigger){
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                                escada2Trigger = true;
+                            }
+                        })
+                    }else if(mesh.name.includes("Escada3")){
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshById("principalSphere");
+                            if(principalSphere && mesh.intersectsMesh(principalSphere, true) && !escada3Trigger){
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                                escada3Trigger = true;
+                            }
+                        })
+                    }else {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }
                     pathArr.push(mesh);
@@ -291,6 +337,17 @@
                 else
                     posAux = -2;
 
+                material = new BABYLON.StandardMaterial("myMaterial", scene);
+
+                if(contLadoDaBolinha%3==0)
+                    material.diffuseColor = colors[0];
+                else if(contLadoDaBolinha%3==1)
+                    material.diffuseColor = colors[1];
+                else
+                    material.diffuseColor = colors[2];
+
+                sphere.material = material;
+
                 sphere.position.x = posAux;
                 sphere.position.z = posAux;
 
@@ -412,6 +469,10 @@
             removeDoorContainer = false;
             doorContainerInit = 0;
 
+            escada1Trigger = false;
+            escada2Trigger = false;
+            escada3Trigger = false;
+
             //Destrói o path geral
             pathArr.forEach(mesh => {
                 if(!mesh.id.includes("Sphere"))
@@ -450,8 +511,43 @@
                     } else if(mesh.name.includes("Empurra")){
                         empurraInitPosition=mesh.position.z;
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.SphereImpostor, { mass:0, friction:.001, restitution:0.5 }, scene);
-                    }
-                    else {
+                    }else if(mesh.name.includes("Escada1")){
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshById("principalSphere");
+                            if(principalSphere && mesh.intersectsMesh(principalSphere, true) && !escada1Trigger){
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                                escada1Trigger = true;
+                            }
+                        })
+                    }else if(mesh.name.includes("Escada2")){
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshById("principalSphere");
+                            if(principalSphere && mesh.intersectsMesh(principalSphere, true) && !escada2Trigger){
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                                escada2Trigger = true;
+                            }
+                        })
+                    }else if(mesh.name.includes("Escada3")){
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshById("principalSphere");
+                            if(principalSphere && mesh.intersectsMesh(principalSphere, true) && !escada3Trigger){
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                                escada3Trigger = true;
+                            }
+                        })
+                    }else {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }
                     pathArr.push(mesh);
@@ -485,6 +581,17 @@
                     posAux = 2;
                 else
                     posAux = -2;
+                    
+                material = new BABYLON.StandardMaterial("myMaterial", scene);
+
+                if(contLadoDaBolinha%3==0)
+                    material.diffuseColor = colors[0];
+                else if(contLadoDaBolinha%3==1)
+                    material.diffuseColor = colors[1];
+                else
+                    material.diffuseColor = colors[2];
+
+                sphere.material = material;
 
                 sphere.position.x = posAux;
                 sphere.position.z = posAux;
