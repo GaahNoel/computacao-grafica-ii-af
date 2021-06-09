@@ -214,24 +214,13 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  12
 	processing begun of mesh:  pressGround
 		WARNING: No materials have been assigned: 
-		num positions      :  1072
-		num normals        :  1072
+		num positions      :  745
+		num normals        :  745
 		num tangents       :  0
-		num uvs            :  2144
+		num uvs            :  1490
 		num uvs2           :  0
 		num colors         :  0
-		num triangles      :  968
-	processing begun of mesh:  Cube.008
-		processing begun of material:  Material.002
-			processing texture Brick_1301
-				texture type:  diffuseTexture, mapped using: "UVMap"
-		num positions      :  30
-		num normals        :  30
-		num tangents       :  0
-		num uvs            :  60
-		num uvs2           :  0
-		num colors         :  0
-		num triangles      :  12
+		num triangles      :  608
 	processing begun of mesh:  Cube
 		WARNING: No materials have been assigned: 
 		num positions      :  172
@@ -241,21 +230,32 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  84
-	processing begun of mesh:  container
+	processing begun of mesh:  Container
 		WARNING: No materials have been assigned: 
-		num positions      :  1072
-		num normals        :  1072
+		num positions      :  745
+		num normals        :  745
 		num tangents       :  0
-		num uvs            :  2144
+		num uvs            :  1490
 		num uvs2           :  0
 		num colors         :  0
-		num triangles      :  968
+		num triangles      :  608
 	processing begun of mesh:  doorContainer
 		WARNING: No materials have been assigned: 
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
 		num uvs            :  58
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  Cube.008
+		processing begun of material:  Material.002
+			processing texture Brick_1301
+				texture type:  diffuseTexture, mapped using: "UVMap"
+		num positions      :  30
+		num normals        :  30
+		num tangents       :  0
+		num uvs            :  60
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  12
@@ -281,10 +281,10 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Empurra
 	writing mesh:  BotaoToma
 	writing mesh:  pressGround
-	writing mesh:  Cube.008
 	writing mesh:  Cube
-	writing mesh:  container
+	writing mesh:  Container
 	writing mesh:  doorContainer
+	writing mesh:  Cube.008
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.5425 secs
+elapsed time:  0 min, 0.8357 secs
