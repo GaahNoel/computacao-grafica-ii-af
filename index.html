@@ -91,6 +91,7 @@
         var createScene = function () {
             
         
+            engine.displayLoadingUI();
             // This creates a basic Babylon Scene object (non-mesh)
             var scene = new BABYLON.Scene(engine);
 
@@ -107,11 +108,7 @@
 
             //scene.debugLayer.show();
 
-            var principalMusic = new BABYLON.Sound("Music", "sounds/principalMusic.mp3", scene, null, {
-                loop: false,
-                autoplay: true,
-                volume: 0.04
-            });
+            
 
             // Skybox
         	var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
@@ -121,6 +118,89 @@
         	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
         	skyboxMaterial.disableLighting = true;
         	skybox.material = skyboxMaterial;		
+
+
+            var vent = BABYLON.SceneLoader.ImportMesh("", "textures/", "venti.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                
+                console.log(newMeshes);
+                newMeshes.forEach(mesh => {
+                    mesh.position.y+=alturaInicial-30;
+                    if(mesh.name.includes("Trigger")){
+                        mesh.isVisible = false;
+                        scene.registerBeforeRender(()=>{
+                            spheres.forEach(sphere =>{
+                                if(mesh.intersectsMesh(sphere, true)) {
+                                    sphere.dispose();
+                                    sphere.setEnabled(false);
+                                }
+                            })
+                        }) 
+                    }
+                    else
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                    if(!mesh.name.includes("Cylinder") && !mesh.name.includes("Trigger")){
+                        if(contCamada%2 == 0)
+                            ventiMesh.addChild(mesh);
+                        else
+                            ventiMesh2.addChild(mesh);
+                        contCamada++;
+                    }
+                })
+                var principalMusic = new BABYLON.Sound("Music", "sounds/principalMusic.mp3", scene, null, {
+                    loop: false,
+                    autoplay: true,
+                    volume: 0.04
+                });
+
+                helice = new BABYLON.Sound("Music", "sounds/helice.mp3", scene, null, {
+                    loop: true,
+                    autoplay: true,
+                    volume: 0.2
+                });
+                
+                engine.hideLoadingUI();
+            })
+
+            var prancha = BABYLON.SceneLoader.ImportMesh("", "textures/", "prancha.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                newMeshes.forEach(mesh => {
+                    mesh.position.y+=240;
+                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                    if(mesh.name.includes("Prancha")){
+                        pranchaMesh.addChild(mesh);
+                        objPositionOfCameraInit = mesh;
+                        camera.target = mesh;
+                        camera.position = new BABYLON.Vector3(mesh.position.x+70, mesh.position.y+150, mesh.position.z+10);
+                    }
+                    
+                })
+            })
+
+            var rampaComBotao = BABYLON.SceneLoader.ImportMesh("", "textures/", "rampaComBotao.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
+                newMeshes.forEach(mesh => {
+                    console.log(newMeshes);
+                    mesh.position.y+=alturaInicial-210;
+                    if(mesh.name.includes("Botao")){
+                        botaoMesh.addChild(mesh);
+                        scene.registerBeforeRender(()=>{
+                            let principalSphere = scene.getMeshByID("principalSphere");
+                            if(principalSphere && !pressed && mesh.intersectsMesh(principalSphere, true)){
+                                pressed = true;
+                                var doorOpen = new BABYLON.Sound("Music", "sounds/door.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                            }
+                        })
+                    }else{
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
+                        if(mesh.name === "Porta1")
+                            porta1InitPosition = mesh.position.x;
+                        if(mesh.name === "Porta2")
+                            porta2InitPosition = mesh.position.x;
+                    }   
+                })
+            })
 
             var path = BABYLON.SceneLoader.ImportMesh("", "textures/", "machine.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 //newMeshes[0].position.y = 20;
@@ -217,42 +297,7 @@
             const botaoMesh = new BABYLON.Mesh("botaoMesh", scene);
 
             
-            helice = new BABYLON.Sound("Music", "sounds/helice.mp3", scene, null, {
-                loop: true,
-                autoplay: true,
-                volume: 0.2
-            });
-            
-
             let contCamada = 0;
-
-            var vent = BABYLON.SceneLoader.ImportMesh("", "textures/", "venti.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
-                
-                console.log(newMeshes);
-                newMeshes.forEach(mesh => {
-                    mesh.position.y+=alturaInicial-30;
-                    if(mesh.name.includes("Trigger")){
-                        mesh.isVisible = false;
-                        scene.registerBeforeRender(()=>{
-                            spheres.forEach(sphere =>{
-                                if(mesh.intersectsMesh(sphere, true)) {
-                                    sphere.dispose();
-                                    sphere.setEnabled(false);
-                                }
-                            })
-                        }) 
-                    }
-                    else
-                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                    if(!mesh.name.includes("Cylinder") && !mesh.name.includes("Trigger")){
-                        if(contCamada%2 == 0)
-                            ventiMesh.addChild(mesh);
-                        else
-                            ventiMesh2.addChild(mesh);
-                        contCamada++;
-                    }
-                })
-            })
 
             var tampaFiltro = BABYLON.Mesh.CreateBox("tampaFiltro", 5, scene);
             tampaFiltro.position.y = alturaInicial-178;
@@ -298,47 +343,8 @@
                 camera.target=principalCircle;
             });
 
-            var prancha = BABYLON.SceneLoader.ImportMesh("", "textures/", "prancha.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
-                newMeshes.forEach(mesh => {
-                    mesh.position.y+=240;
-                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                    if(mesh.name.includes("Prancha")){
-                        pranchaMesh.addChild(mesh);
-                        objPositionOfCameraInit = mesh;
-                        camera.target = mesh;
-                        camera.position = new BABYLON.Vector3(mesh.position.x+70, mesh.position.y+150, mesh.position.z+10);
-                    }
-                    
-                })
-            })
 
-            var rampaComBotao = BABYLON.SceneLoader.ImportMesh("", "textures/", "rampaComBotao.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
-                newMeshes.forEach(mesh => {
-                    console.log(newMeshes);
-                    mesh.position.y+=alturaInicial-210;
-                    if(mesh.name.includes("Botao")){
-                        botaoMesh.addChild(mesh);
-                        scene.registerBeforeRender(()=>{
-                            let principalSphere = scene.getMeshByID("principalSphere");
-                            if(principalSphere && !pressed && mesh.intersectsMesh(principalSphere, true)){
-                                pressed = true;
-                                var doorOpen = new BABYLON.Sound("Music", "sounds/door.mp3", scene, null, {
-                                    loop: false,
-                                    autoplay: true,
-                                    volume: 0.4
-                                });
-                            }
-                        })
-                    }else{
-                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
-                        if(mesh.name === "Porta1")
-                            porta1InitPosition = mesh.position.x;
-                        if(mesh.name === "Porta2")
-                            porta2InitPosition = mesh.position.x;
-                    }   
-                })
-            })
-
+            
             // const sphere3 = BABYLON.Mesh.CreateSphere(`sphere10`, 32, 2, scene);
             // sphere3.position = new BABYLON.Vector3(-15, -70, 95)
             // sphere3.physicsImpostor = new BABYLON.PhysicsImpostor(sphere3, BABYLON.PhysicsImpostor.SphereImpostor, { mass:5, friction:.001, restitution:0.5 }, scene);        
