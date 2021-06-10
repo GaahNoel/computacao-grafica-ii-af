@@ -52,6 +52,7 @@
         var escada1Trigger = false;
         var escada2Trigger = false;
         var escada3Trigger = false;
+        var circleTrigger = false;
 
         var tackle = false;
         var firstTouchTackle = false;
@@ -250,6 +251,19 @@
                 newMeshes.forEach(mesh => {
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
 
+                    scene.registerBeforeRender(()=>{
+                        if(lastBall && mesh.intersectsMesh(lastBall, true) && !circleTrigger){
+                            circleTrigger = true;
+                            setTimeout(()=>{
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                            },500);
+                        }
+                    })
+
                     if(mesh.name === 'Pino') {
                         pine.addChild(mesh);
                         principalCircle.addChild(pine);
@@ -257,6 +271,7 @@
                     else {
                         principalCircle.addChild(mesh);
                     }
+                    
                 })
                 principalCircle.position.y = -85;
                 principalCircle.position.z = 115;
@@ -316,7 +331,7 @@
                     mesh.position.y = -125;
                     mesh.position.z = 125;
                     mesh.position.x = -25;
-                    mesh.scaling = new BABYLON.Vector3(20,10,20);
+                    mesh.scaling = new BABYLON.Vector3(25,12.5,25);
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
 
                     scene.registerBeforeRender(()=>{
@@ -377,7 +392,7 @@
                         isSpinning = false;
                         clearInterval(spawnSphereInit);
                         camera.target = sphere;
-                        camera.position = new BABYLON.Vector3(sphere.position.x + 20, sphere.position.y + 20, sphere.position.z + 20);
+                        camera.position = new BABYLON.Vector3(sphere.position.x + 40, sphere.position.y + 60, sphere.position.z + 20);
                         sphere.id = "principalSphere";
                         spheres.forEach(filteredSphere =>{
                             if(filteredSphere.id!=="principalSphere")
@@ -404,14 +419,22 @@
                         camera.position = new BABYLON.Vector3(lastBall.position.x+20, lastBall.position.y+20, lastBall.position.z+20);
                         changeCamera = true;
                         removeDoorContainer = true;
+                        var win = new BABYLON.Sound("Music", "sounds/slidingDoor.mp3", scene, null, {
+                                loop: false,
+                                autoplay: true,
+                                volume: 0.2
+                        }); 
                         principalSphere.dispose();
                     }
                 }
 
                 if(principalSphere && tampaCano && isUpToRepair && tampaCano.intersectsMesh(principalSphere, true)){
                     isUpToRepair=false;
-                    var steelMaterial = new BABYLON.PBRMetallicRoughnessMaterial("steelMaterial", scene);
-                    steelMaterial.baseTexture = new BABYLON.Texture("textures/steelBall.jpg", scene);
+                    var steelMaterial = new BABYLON.StandardMaterial("steelMaterial", scene);
+                    steelMaterial.diffuseTexture = new BABYLON.Texture("textures/steelBall.jpg");
+                    steelMaterial.specularTexture = new BABYLON.Texture("textures/steelBall.jpg");
+                    steelMaterial.emissiveTexture = new BABYLON.Texture("textures/steelBall.jpg");
+                    
                     principalSphere.material = steelMaterial;
                     
                     var paint = new BABYLON.Sound("Music", "sounds/spray.mp3", scene, null, {
@@ -420,7 +443,7 @@
                             volume: 0.4
                     });
 
-                    createBallParticle(principalSphere);
+                    createSmokeParticle(principalSphere);
 
                 }
 
@@ -445,30 +468,30 @@
             particleSystem.particleTexture = new BABYLON.Texture("./textures/rings.png", scene);
 
             particleSystem.emitter = new BABYLON.Vector3(item.position.x, item.position.y, item.position.z); // the starting object, the emitter
-            particleSystem.minEmitBox = new BABYLON.Vector3(-0.375, 0, -2); // Starting all from
-            particleSystem.maxEmitBox = new BABYLON.Vector3(0.375, 0, 2); // To...
+            particleSystem.minEmitBox = new BABYLON.Vector3(-1, -0.5, -1); // Starting all from
+            particleSystem.maxEmitBox = new BABYLON.Vector3(1, 0.5, 1); // To...
 
             // Colors of all particles
             particleSystem.color1 = new BABYLON.Color4(1, 1, 1.0, 1.0);
             particleSystem.color2 = new BABYLON.Color4(1, 1, 1.0, 1.0);
             particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
             // Size of each particle (random between...
-            particleSystem.minSize = 0.2;
-            particleSystem.maxSize = 0.7;
+            particleSystem.minSize = 0.5;
+            particleSystem.maxSize = 0.5;
             
             // Life time of each particle (random between...
-            particleSystem.minLifeTime = 0.5;
-            particleSystem.maxLifeTime = 0.5;
+            particleSystem.minLifeTime = 3;
+            particleSystem.maxLifeTime = 3;
 
             // Emission rate
-            particleSystem.emitRate = 1200;
+            particleSystem.emitRate = 15;
 
             // Blend mode : BLENDMODE_ONEONE, or BLENDMODE_STANDARD
             particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_STANDARD;    
 
             // Direction of each particle after it has been emitted
-            particleSystem.direction1 = new BABYLON.Vector3(-2, 8, 2);
-            particleSystem.direction2 = new BABYLON.Vector3(2, 8, -2);
+            particleSystem.direction1 = new BABYLON.Vector3(-0.5, 8, 0.5);
+            particleSystem.direction2 = new BABYLON.Vector3(0.5, 8, -0.5);
 
             // Angular speed, in radians
             particleSystem.minAngularSpeed = 0;
@@ -483,10 +506,89 @@
             particleSystem.start();
         }
 
+        const createSmokeParticle = function(meshes){
+            //var emitter = new BABYLON.ConeParticleEmitter();
+            var emitter = new BABYLON.TransformNode();
+            //emitter.position = new BABYLON.Vector3(-5, 100, 5);;
+
+            //var fountain = BABYLON.Mesh.CreateBox("fountain", 0.01, scene);
+            var fountain = BABYLON.MeshBuilder.CreateCylinder("fountain", {height: 1, diameter: 2}, scene);
+            fountain.position = new BABYLON.Vector3(meshes.position.x, meshes.position.y-12, meshes.position.z);
+            fountain.isVisible = false;
+
+            var child = new BABYLON.TransformNode();
+            child.parent = fountain;
+            // child.rotation.z = Math.PI;
+
+        
+            var particleSystem = new BABYLON.ParticleSystem("particles", 30 , scene, null, true);
+            particleSystem.particleTexture = new BABYLON.Texture("https://raw.githubusercontent.com/PatrickRyanMS/BabylonJStextures/master/ParticleSystems/Steam/T_SteamSpriteSheet.png", scene, true,
+                false, BABYLON.Texture.TRILINEAR_SAMPLINGMODE);
+
+            particleSystem.startSpriteCellID = 0;
+            particleSystem.endSpriteCellID = 31;
+            particleSystem.spriteCellHeight = 256;
+            particleSystem.spriteCellWidth = 128;
+            particleSystem.spriteCellChangeSpeed = 4;
+
+            particleSystem.minScaleX = 25.0;
+            particleSystem.minScaleY = 50.0;
+            particleSystem.maxScaleX = 25.0;
+            particleSystem.maxScaleY = 50.0;
+
+            particleSystem.addSizeGradient(0, 0.0, 0.0);
+            particleSystem.addSizeGradient(2.0, 1, 5);
+
+            particleSystem.translationPivot = new BABYLON.Vector2(0, -0.5);
+
+            // Where the particles come from
+            var radius = 1;
+            var angle = Math.PI;
+            var coneEmitter = new BABYLON.SphereParticleEmitter(radius, angle);
+            coneEmitter.radiusRange = 0;
+            coneEmitter.heightRange = 0;
+
+            particleSystem.particleEmitterType = coneEmitter;
+            particleSystem.emitter= child;
+
+            // Life time of each particle (random between...
+            particleSystem.minLifeTime = 2.0;
+            particleSystem.maxLifeTime = 2.0;
+
+            particleSystem.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_Y;
+
+            // Color gradient over life
+            particleSystem.addColorGradient(0, new BABYLON.Color4(1, 1, 1, 0));
+            particleSystem.addColorGradient(0.5, new BABYLON.Color4(1, 1, 1, 70/255));
+            particleSystem.addColorGradient(1.0, new BABYLON.Color4(1, 1, 1, 0));
+
+            // Emission rate
+            particleSystem.emitRate = 6 ;
+
+            // Blend mode : BLENDMODE_ONEONE, or BLENDMODE_STANDARD
+            particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
+
+            // Set the gravity of all particles
+            particleSystem.gravity = new BABYLON.Vector3(0, 0, 0);
+
+            // Speed
+            particleSystem.minEmitPower = 0;
+            particleSystem.maxEmitPower = 0 ;
+            particleSystem.updateSpeed = 2/60;
+
+            // Start the particle system
+            particleSystem.start();
+
+            setTimeout(()=>{
+                particleSystem.stop();
+            },4000)
+        }
+
         const resetScene = function(){
 
             //Reseta variáveis globais
-            isSpinning=true;
+            isSpinning = true;
+            isUpToRepair = true;
             tackle = false;
             firstTouchTackle = false;
             pressed = false;
@@ -497,6 +599,7 @@
             escada1Trigger = false;
             escada2Trigger = false;
             escada3Trigger = false;
+            circleTrigger = false;
 
             //Destrói o path geral
             pathArr.forEach(mesh => {
@@ -530,7 +633,7 @@
                                 }
                                 setTimeout(()=>{
                                     tackle = true;
-                                }, 750);
+                                }, 1000);
                             }
                         })
                     } else if(mesh.name.includes("Empurra")){
@@ -725,9 +828,9 @@
                     }
                     if(porta1 && porta2 && pressed){
                         if(porta1InitPosition && porta1.position.x < porta1InitPosition+5)
-                            porta1.position.x += 0.05;
+                            porta1.position.x += 0.07;
                         if(porta2InitPosition && porta2.position.x > porta2InitPosition-5)
-                            porta2.position.x -= 0.05;
+                            porta2.position.x -= 0.07;
                     }
                     if(pineMesh) {
                         pineMesh.rotation.y += 0.015;
@@ -738,8 +841,11 @@
 
                     if(empurra && tackle){
                         if(empurraInitPosition && empurra.position.z < empurraInitPosition+10)
-                            empurra.position.z += 0.4;
+                            empurra.position.z += 0.3;
                     }
+
+                    if(principalSphere && !isUpToRepair)
+                        createBallParticle(principalSphere);
 
                     sceneToRender.render();
                 }
