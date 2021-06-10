@@ -13,7 +13,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	Python World class constructor completed
 	processing begun of camera (UniversalCamera):  Camera
 	processing begun of mesh:  Prato
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.001
+			processing texture Wood_0692
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  498
 		num normals        :  498
 		num tangents       :  0
@@ -22,7 +24,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  208
 	processing begun of mesh:  Pino
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material
 		num positions      :  338
 		num normals        :  338
 		num tangents       :  0
@@ -31,7 +33,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  136
 	processing begun of mesh:  Cube
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.002
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -40,7 +42,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Cube.001
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.003
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -56,4 +58,4 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cube.001
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.042 secs
+elapsed time:  0 min, 0.0441 secs

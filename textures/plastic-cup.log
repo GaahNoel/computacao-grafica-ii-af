@@ -13,7 +13,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
 	processing begun of mesh:  Plastic Cup
-		processing begun of material:  Plastic Cup
+		processing begun of material:  Material
+			processing texture plastic
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		Custom split normals with tangents being used
 		num positions      :  656
 		num normals        :  656
@@ -29,4 +31,4 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Plastic Cup
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.0943 secs
+elapsed time:  0 min, 0.0891 secs

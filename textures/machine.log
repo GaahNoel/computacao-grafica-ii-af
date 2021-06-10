@@ -123,7 +123,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  48
-	processing begun of mesh:  Cube.012
+	processing begun of mesh:  Escada1
 		processing begun of material:  Material.060
 			processing texture BrickWall_4535
 				texture type:  diffuseTexture, mapped using: "UVMap"
@@ -134,7 +134,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  48
-	processing begun of mesh:  Cube.009
+	processing begun of mesh:  Escada2
 		processing begun of material:  Material.061
 			processing texture BrickWall_4535
 				texture type:  diffuseTexture, mapped using: "UVMap"
@@ -145,7 +145,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  48
-	processing begun of mesh:  Cube.011
+	processing begun of mesh:  Escada3
 		processing begun of material:  Material.062
 			processing texture BrickWall_4535
 				texture type:  diffuseTexture, mapped using: "UVMap"
@@ -157,7 +157,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  48
 	processing begun of mesh:  Cylinder.003
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.014
+			processing texture glass_4348
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  1025
 		num normals        :  1025
 		num tangents       :  0
@@ -166,7 +168,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  384
 	processing begun of mesh:  Cylinder.002
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material
+			processing texture metal_4453
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  5014
 		num normals        :  5014
 		num tangents       :  0
@@ -175,7 +179,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  1792
 	processing begun of mesh:  containerSphere
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.016
+			processing texture plastic
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  2594
 		num normals        :  2594
 		num tangents       :  0
@@ -195,7 +201,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Empurra
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.003
+			processing texture Wood_0692
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  309
 		num normals        :  309
 		num tangents       :  0
@@ -204,7 +212,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  124
 	processing begun of mesh:  BotaoToma
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.006
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -213,7 +221,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  pressGround
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.009
+			processing texture cardboard_texture
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  745
 		num normals        :  745
 		num tangents       :  0
@@ -222,7 +232,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  608
 	processing begun of mesh:  Cube
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.013
+			processing texture StoneFloor_5062
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  172
 		num normals        :  172
 		num tangents       :  0
@@ -231,7 +243,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  84
 	processing begun of mesh:  Container
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.010
+			processing texture cardboard_texture
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  745
 		num normals        :  745
 		num tangents       :  0
@@ -240,7 +254,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  608
 	processing begun of mesh:  doorContainer
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.015
+			processing texture cardboard_texture
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -271,9 +287,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cube.002
 	writing mesh:  Cube.005
 	writing mesh:  Cube.014
-	writing mesh:  Cube.012
-	writing mesh:  Cube.009
-	writing mesh:  Cube.011
+	writing mesh:  Escada1
+	writing mesh:  Escada2
+	writing mesh:  Escada3
 	writing mesh:  Cylinder.003
 	writing mesh:  Cylinder.002
 	writing mesh:  containerSphere
@@ -287,4 +303,4 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Cube.008
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.8357 secs
+elapsed time:  0 min, 0.5027 secs
