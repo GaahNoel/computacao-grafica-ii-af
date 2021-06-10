@@ -53,6 +53,7 @@
         var escada2Trigger = false;
         var escada3Trigger = false;
         var circleTrigger = false;
+        var funilTrigger = false;
 
         var tackle = false;
         var firstTouchTackle = false;
@@ -105,6 +106,12 @@
             light.intensity = 0.7;
 
             //scene.debugLayer.show();
+
+            var principalMusic = new BABYLON.Sound("Music", "sounds/principalMusic.mp3", scene, null, {
+                loop: false,
+                autoplay: true,
+                volume: 0.04
+            });
 
             // Skybox
         	var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
@@ -182,6 +189,18 @@
                                     volume: 0.4
                                 });
                                 escada3Trigger = true;
+                            }
+                        })
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
+                    }else if(mesh.name.includes("funil")){
+                        scene.registerBeforeRender(()=>{
+                            if(lastBall && mesh.intersectsMesh(lastBall, true) && !funilTrigger){
+                                var fallImpact = new BABYLON.Sound("Music", "sounds/steelHit.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
+                                funilTrigger = true;
                             }
                         })
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
@@ -306,7 +325,7 @@
                                 var doorOpen = new BABYLON.Sound("Music", "sounds/door.mp3", scene, null, {
                                     loop: false,
                                     autoplay: true,
-                                    volume: 0.2
+                                    volume: 0.4
                                 });
                             }
                         })
@@ -340,7 +359,7 @@
                             var win = new BABYLON.Sound("Music", "sounds/win.mp3", scene, null, {
                                     loop: false,
                                     autoplay: true,
-                                    volume: 0.2
+                                    volume: 0.4
                             }); 
                             setTimeout(()=>{      
                                 resetScene();
@@ -403,7 +422,7 @@
                         var ballSound = new BABYLON.Sound("Music", "sounds/breast.mp3", scene, null, {
                             loop: false,
                             autoplay: true,
-                            volume: 0.2
+                            volume: 0.4
                         });
                     }
                 })
@@ -419,11 +438,16 @@
                         camera.position = new BABYLON.Vector3(lastBall.position.x+20, lastBall.position.y+20, lastBall.position.z+20);
                         changeCamera = true;
                         removeDoorContainer = true;
-                        var win = new BABYLON.Sound("Music", "sounds/slidingDoor.mp3", scene, null, {
+                        var slidingDoor = new BABYLON.Sound("Music", "sounds/slidingDoor.mp3", scene, null, {
                                 loop: false,
                                 autoplay: true,
-                                volume: 0.2
+                                volume: 0.4
                         }); 
+                        var fallImpact = new BABYLON.Sound("Music", "sounds/fall.mp3", scene, null, {
+                                    loop: false,
+                                    autoplay: true,
+                                    volume: 0.4
+                                });
                         principalSphere.dispose();
                     }
                 }
@@ -600,6 +624,7 @@
             escada2Trigger = false;
             escada3Trigger = false;
             circleTrigger = false;
+            funilTrigger = false;
 
             //Destrói o path geral
             pathArr.forEach(mesh => {
