@@ -46,7 +46,8 @@
         var sceneToRender = null;
         var camera = null;
         var contLadoDaBolinha = 0;
-        var isSpinning=true;
+        var isSpinning = true;
+        var isUpToRepair = true;
 
         var escada1Trigger = false;
         var escada2Trigger = false;
@@ -156,6 +157,7 @@
                                 escada1Trigger = true;
                             }
                         })
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }else if(mesh.name.includes("Escada2")){
                         scene.registerBeforeRender(()=>{
                             let principalSphere = scene.getMeshById("principalSphere");
@@ -166,8 +168,9 @@
                                     volume: 0.4
                                 });
                                 escada2Trigger = true;
-                            }
+                            } 
                         })
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }else if(mesh.name.includes("Escada3")){
                         scene.registerBeforeRender(()=>{
                             let principalSphere = scene.getMeshById("principalSphere");
@@ -180,6 +183,7 @@
                                 escada3Trigger = true;
                             }
                         })
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }else {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }
@@ -233,6 +237,11 @@
             var tampaFiltro = BABYLON.Mesh.CreateBox("tampaFiltro", 5, scene);
             tampaFiltro.position.y = alturaInicial-178;
             tampaFiltro.isVisible = false;
+
+            var tampaCano = BABYLON.Mesh.CreateBox("tampaCano", 3, scene);
+            tampaCano.position.y = alturaInicial-225;
+            tampaCano.position.z = 36;
+            tampaCano.isVisible = false;
 
             const principalCircle = new BABYLON.Mesh("principalCircle", scene);
             const pine =  new BABYLON.Mesh("pine", scene);
@@ -399,6 +408,22 @@
                     }
                 }
 
+                if(principalSphere && tampaCano && isUpToRepair && tampaCano.intersectsMesh(principalSphere, true)){
+                    isUpToRepair=false;
+                    var steelMaterial = new BABYLON.PBRMetallicRoughnessMaterial("steelMaterial", scene);
+                    steelMaterial.baseTexture = new BABYLON.Texture("textures/steelBall.jpg", scene);
+                    principalSphere.material = steelMaterial;
+                    
+                    var paint = new BABYLON.Sound("Music", "sounds/spray.mp3", scene, null, {
+                            loop: false,
+                            autoplay: true,
+                            volume: 0.4
+                    });
+
+                    createBallParticle(principalSphere);
+
+                }
+
             })
         
             return scene;
@@ -523,6 +548,7 @@
                                 escada1Trigger = true;
                             }
                         })
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }else if(mesh.name.includes("Escada2")){
                         scene.registerBeforeRender(()=>{
                             let principalSphere = scene.getMeshById("principalSphere");
@@ -533,8 +559,9 @@
                                     volume: 0.4
                                 });
                                 escada2Trigger = true;
-                            }
+                            } 
                         })
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }else if(mesh.name.includes("Escada3")){
                         scene.registerBeforeRender(()=>{
                             let principalSphere = scene.getMeshById("principalSphere");
@@ -547,6 +574,7 @@
                                 escada3Trigger = true;
                             }
                         })
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }else {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }
@@ -564,7 +592,7 @@
             camera.target = objPositionOfCameraInit;
             camera.position = new BABYLON.Vector3(objPositionOfCameraInit.position.x+70, objPositionOfCameraInit.position.y+150, objPositionOfCameraInit.position.z+10);
 
-            //Seta a "música" principal novamente
+            //Seta o "som principal" novamente
             helice = new BABYLON.Sound("Music", "sounds/helice.mp3", scene, null, {
                 loop: true,
                 autoplay: true,
@@ -600,7 +628,6 @@
 
                 spheres.push(sphere);
             }, 1500)
-
         }
 
         const handleAnimation = function(componente, isBlackNote, scene) {
@@ -711,11 +738,7 @@
 
                     if(empurra && tackle){
                         if(empurraInitPosition && empurra.position.z < empurraInitPosition+10)
-                            empurra.position.z += 0.2;
-                    }
-
-                    if(principalSphere){
-                        createBallParticle(principalSphere);
+                            empurra.position.z += 0.4;
                     }
 
                     sceneToRender.render();
