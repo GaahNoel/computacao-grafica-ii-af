@@ -180,7 +180,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num triangles      :  1792
 	processing begun of mesh:  containerSphere
 		processing begun of material:  Material.016
-			processing texture plastic
+			processing texture gold_texture
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  2594
 		num normals        :  2594
@@ -324,4 +324,4 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Plane.001
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 3.7986 secs
+elapsed time:  0 min, 4.3624 secs
