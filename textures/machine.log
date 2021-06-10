@@ -156,7 +156,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  48
-	processing begun of mesh:  Cylinder.003
+	processing begun of mesh:  funil
 		processing begun of material:  Material.014
 			processing texture glass_4348
 				texture type:  diffuseTexture, mapped using: "UVMap"
@@ -309,7 +309,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Escada1
 	writing mesh:  Escada2
 	writing mesh:  Escada3
-	writing mesh:  Cylinder.003
+	writing mesh:  funil
 	writing mesh:  Cylinder.002
 	writing mesh:  containerSphere
 	writing mesh:  Cube.006
@@ -324,4 +324,4 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Plane.001
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 4.3624 secs
+elapsed time:  0 min, 3.6928 secs
