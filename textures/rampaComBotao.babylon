@@ -47,7 +47,7 @@
 ,176,177,97,178,179,180,181,182,183,184,185,186]
 ,"subMeshes":[{"materialIndex":0,"verticesStart":0,"verticesCount":187,"indexStart":0,"indexCount":216}]
 ,"instances":[]}
-,{"name":"Botao","id":"Botao","materialId":"Material.001","billboardMode":0,"position":[0,8.9373,22.6757],"rotation":[-1.0472,0,0],"scaling":[2.0266,3.537,0.298],"isVisible":true,"freezeWorldMatrix":false,"isEnabled":true,"checkCollisions":false,"receiveShadows":false,"pickable":true,"tags":""
+,{"name":"Botao","id":"Botao","materialId":"Material.001","billboardMode":0,"position":[0,8.8684,22.6757],"rotation":[-1.0472,0,0],"scaling":[2.0266,3.537,0.148],"isVisible":true,"freezeWorldMatrix":false,"isEnabled":true,"checkCollisions":false,"receiveShadows":false,"pickable":true,"tags":""
 ,"positions":[-1,1,-1,-1,-1,1,-1,-1,-1,-1,1,1,1,-1,1,-1,-1,1,1,1,1,1,-1,-1,1,-1,1,1,1,-1,-1,-1,-1,1,-1,-1,1,-1,1,-1,-1,-1,-1,-1,1,-1,1,1,1,1,-1
 ,1,1,1,-1,1,1,1,1,1,1,1,-1,-1,1,-1,-1,-1,-1,1,-1,1,1,-1,-1,-1,-1,-1,-1,1,1,-1,1,-1,1,1,-1]
 ,"normals":[-1,0,0,-1,0,0,-1,0,0,0,0,1,0,0,1,0,0,1,1,0,0,1,0,0,1,0,0,0,0,-1,0,0,-1,0,0,-1,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0
