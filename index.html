@@ -472,10 +472,65 @@
                 }
 
             })
+
+            createHUD();
         
             return scene;
         
         };
+
+        var createHUD = function(scene) {
+            var advancedTexture;
+
+            var buildUI = function () {
+                if (advancedTexture) {
+                    advancedTexture.dispose();
+                }
+                advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+                var topPanel = new BABYLON.GUI.StackPanel();
+                topPanel.paddingBottom = "5px";
+                topPanel.paddingTop = "15px";
+                topPanel.isVertical = true;
+                topPanel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_STRETCH;
+                topPanel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+                topPanel.fontSize = 26;
+
+                var footPanel = new BABYLON.GUI.StackPanel();
+                footPanel.paddingBottom = "15px";
+                footPanel.paddingTop = "15px";
+                footPanel.isVertical = true;
+                footPanel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_STRETCH;
+                footPanel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+                footPanel.fontSize = 26;
+
+                advancedTexture.addControl(topPanel);
+
+                advancedTexture.addControl(footPanel);
+
+                var addHeader = function (text, panel, alinhamento) {
+                    var header = new BABYLON.GUI.TextBlock();
+                    header.text = text;
+                    header.height = "30px";
+                    header.color = "black";
+                    header.outlineWidth = "4px";
+                    header.outlineColor = "white";
+                    header.textHorizontalAlignment = alinhamento;
+
+                
+                    panel.addControl(header);
+                }
+
+                var alinhamentoCentro = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+
+                
+                addHeader("AVALIAÇÃO - AF", footPanel, alinhamentoCentro);
+                addHeader("Gabriel Antonio Noel - 180274", footPanel, alinhamentoCentro);
+                addHeader("Gustavo dos Santos Nogueira - 181010", footPanel, alinhamentoCentro);
+            } 
+            buildUI();
+            return advancedTexture;
+        }
 
         const createBallParticle = function(meshes){
             var item;
