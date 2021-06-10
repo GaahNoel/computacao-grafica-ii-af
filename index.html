@@ -300,7 +300,7 @@
 
             var prancha = BABYLON.SceneLoader.ImportMesh("", "textures/", "prancha.babylon", scene, function (newMeshes, particleSystems, skeletons, animationGroups){
                 newMeshes.forEach(mesh => {
-                    mesh.position.y=240;
+                    mesh.position.y+=240;
                     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
                     if(mesh.name.includes("Prancha")){
                         pranchaMesh.addChild(mesh);
