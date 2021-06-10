@@ -9,11 +9,13 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		Vert Color Precision:  3
 		Mat Weight Precision:  2
 		Keep Z-up r-handed  :  no
-		Texture directory   :  C:\Users\Gustavo\Documents\FACENS\7° Sem\Computação Gráfica II\AF\computacao-grafica-ii-af-main\textures\
+		Texture directory   :  F:\Faculdade\Computação gráfica - II\AF\AF\textures\
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
 	processing begun of mesh:  Cube.012
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.002
+			processing texture Concrete_1749
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  187
 		num normals        :  187
 		num tangents       :  0
@@ -22,7 +24,7 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  72
 	processing begun of mesh:  Botao
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.001
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -31,7 +33,9 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Porta1
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.003
+			processing texture Wood_0692
+				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -40,7 +44,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Porta2
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.003
+		registered as also a user of material:  Material.003
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -49,7 +54,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Deslocador2
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.002
+		registered as also a user of material:  Material.002
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -58,7 +64,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num colors         :  0
 		num triangles      :  12
 	processing begun of mesh:  Deslocador1
-		WARNING: No materials have been assigned: 
+		processing begun of material:  Material.002
+		registered as also a user of material:  Material.002
 		num positions      :  29
 		num normals        :  29
 		num tangents       :  0
@@ -75,4 +82,4 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Deslocador1
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.03 secs
+elapsed time:  0 min, 0.033 secs
