@@ -157,7 +157,7 @@
                     autoplay: true,
                     volume: 0.2
                 });
-                
+
                 engine.hideLoadingUI();
             })
 
@@ -423,7 +423,9 @@
                             if(filteredSphere.id!=="principalSphere")
                                 filteredSphere.dispose();
                         })
-                        helice.stop();
+
+                        if(helice)
+                            helice.stop();
 
                         var ballSound = new BABYLON.Sound("Music", "sounds/breast.mp3", scene, null, {
                             loop: false,
