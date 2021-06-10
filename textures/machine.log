@@ -275,6 +275,25 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 		num uvs2           :  0
 		num colors         :  0
 		num triangles      :  12
+	processing begun of mesh:  Plane
+		processing begun of material:  Material.017
+		num positions      :  55285
+		num normals        :  55285
+		num tangents       :  0
+		num uvs            :  110570
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  20160
+	WARNING: The following object (type - CURVE) is not currently exportable thus ignored: BezierCircle.001
+	processing begun of mesh:  Plane.001
+		processing begun of material:  Material.018
+		num positions      :  55285
+		num normals        :  55285
+		num tangents       :  0
+		num uvs            :  110570
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  20160
 	processing begun of light (POINT):  Light
 	processing begun of light (POINT):  Light.001
 	processing begun of light (POINT):  Light.002
@@ -301,6 +320,8 @@ Exporter version: 2.80.1, Blender version: 2.92.0
 	writing mesh:  Container
 	writing mesh:  doorContainer
 	writing mesh:  Cube.008
+	writing mesh:  Plane
+	writing mesh:  Plane.001
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.5027 secs
+elapsed time:  0 min, 3.7986 secs
