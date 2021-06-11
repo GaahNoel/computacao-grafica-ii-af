@@ -85,6 +85,8 @@
         var empurraInitPosition;
         var posAux;
 
+        var botaoAux;
+
         var removeDoorContainer = false;
         var doorContainerInit = 0;
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
@@ -108,7 +110,10 @@
 
             //scene.debugLayer.show();
 
-            
+            //Criação do limite do mapa
+            var mapLimit = BABYLON.Mesh.CreateBox("mapLimit", 500, scene);
+            mapLimit.position.y = -400;
+            mapLimit.isVisible = false;
 
             // Skybox
         	var skybox = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
@@ -147,7 +152,7 @@
                     }
                 })
                 var principalMusic = new BABYLON.Sound("Music", "sounds/principalMusic.mp3", scene, null, {
-                    loop: false,
+                    loop: true,
                     autoplay: true,
                     volume: 0.04
                 });
@@ -183,7 +188,9 @@
                         botaoMesh.addChild(mesh);
                         scene.registerBeforeRender(()=>{
                             let principalSphere = scene.getMeshByID("principalSphere");
-                            if(principalSphere && !pressed && mesh.intersectsMesh(principalSphere, true)){
+                            if(principalSphere && botaoAux.intersectsMesh(principalSphere, true))
+                                console.log("AOOOOO");
+                            if(botaoAux && principalSphere && !pressed && (mesh.intersectsMesh(principalSphere, true) || botaoAux.intersectsMesh(principalSphere, true))){
                                 pressed = true;
                                 var doorOpen = new BABYLON.Sound("Music", "sounds/door.mp3", scene, null, {
                                     loop: false,
@@ -274,6 +281,7 @@
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
                     }else if(mesh.name.includes("funil")){
                         scene.registerBeforeRender(()=>{
+                            if(!funilTrigger)
                             if(lastBall && mesh.intersectsMesh(lastBall, true) && !funilTrigger){
                                 var fallImpact = new BABYLON.Sound("Music", "sounds/steelHit.mp3", scene, null, {
                                     loop: false,
@@ -308,6 +316,11 @@
             tampaCano.position.z = 36;
             tampaCano.isVisible = false;
 
+            botaoAux = BABYLON.Mesh.CreateBox("botaoAux", 4, scene);
+            botaoAux.position.y = alturaInicial-203;
+            botaoAux.position.z = 30;
+            botaoAux.isVisible = false;
+
             const principalCircle = new BABYLON.Mesh("principalCircle", scene);
             const pine =  new BABYLON.Mesh("pine", scene);
 
@@ -325,6 +338,8 @@
                                     volume: 0.4
                                 });
                             },500);
+                            camera.target = lastBall;
+                            camera.position = new BABYLON.Vector3(lastBall.position.x+20, lastBall.position.y + 100, lastBall.position.z + 20);
                         }
                     })
 
@@ -366,10 +381,16 @@
                                     loop: false,
                                     autoplay: true,
                                     volume: 0.4
-                            }); 
+                            });
                             setTimeout(()=>{      
+                                createWinParticle(mesh);
+                            }, 1000)
+
+                            console.log("Win Reset");
+                            setTimeout(()=>{   
                                 resetScene();
                             }, 3500)
+
                         }
                     }) 
                 })
@@ -413,11 +434,11 @@
 
             scene.registerBeforeRender(() => {
                 spheres.forEach(sphere => {
-                    if(tampaFiltro.intersectsMesh(sphere, true)){
+                    if(tampaFiltro.intersectsMesh(sphere, true) && isSpinning){
                         isSpinning = false;
                         clearInterval(spawnSphereInit);
                         camera.target = sphere;
-                        camera.position = new BABYLON.Vector3(sphere.position.x + 40, sphere.position.y + 60, sphere.position.z + 20);
+                        camera.position = new BABYLON.Vector3(sphere.position.x - 40, sphere.position.y + 60, sphere.position.z + 20);
                         sphere.id = "principalSphere";
                         spheres.forEach(filteredSphere =>{
                             if(filteredSphere.id!=="principalSphere")
@@ -430,7 +451,7 @@
                         var ballSound = new BABYLON.Sound("Music", "sounds/breast.mp3", scene, null, {
                             loop: false,
                             autoplay: true,
-                            volume: 0.4
+                            volume: 0.1
                         });
                     }
                 })
@@ -477,6 +498,22 @@
 
                     createSmokeParticle(principalSphere);
 
+                }
+
+                if(lastBall && mapLimit.intersectsMesh(lastBall, true)){
+                    lastBall.dispose();
+                    lastBall=null;
+                    console.log("Lose Reset");
+                    resetScene();
+                }
+                if(principalSphere && mapLimit.intersectsMesh(principalSphere, true)){
+                    principalSphere.dispose();
+                    if(lastBall){
+                        lastBall.dispose();
+                        lastBall = null;
+                    }
+                    console.log("Lose Reset");
+                    resetScene();
                 }
 
             })
@@ -552,7 +589,7 @@
             particleSystem.targetStopDuration = 0.1;
           
             // Where the particles come from
-            particleSystem.particleTexture = new BABYLON.Texture("./textures/rings.png", scene);
+            particleSystem.particleTexture = new BABYLON.Texture("./textures/star.png", scene);
 
             particleSystem.emitter = new BABYLON.Vector3(item.position.x, item.position.y, item.position.z); // the starting object, the emitter
             particleSystem.minEmitBox = new BABYLON.Vector3(-1, -0.5, -1); // Starting all from
@@ -587,6 +624,62 @@
             // Speed
             particleSystem.minEmitPower = 1;
             particleSystem.maxEmitPower = 1;
+            particleSystem.updateSpeed = 0.01;
+
+            // Start the particle system
+            particleSystem.start();
+        }
+
+        const createWinParticle = function(meshes){
+            var item;
+        
+            // Create a particle system
+            var particleSystem = new BABYLON.ParticleSystem("particles", 5000, scene);
+
+            // Select mesh
+            item=meshes;
+            particleSystem.gravity = new BABYLON.Vector3(0, 0, 0);
+            particleSystem.targetStopDuration = 0.1;
+          
+            // Where the particles come from
+            particleSystem.particleTexture = new BABYLON.Texture("./textures/confetti.png", scene);
+
+            particleSystem.emitter = new BABYLON.Vector3(item.position.x, item.position.y+15, item.position.z); // the starting object, the emitter
+            // particleSystem.minEmitBox = new BABYLON.Vector3(-10, -0.5, -10); // Starting all from
+            // particleSystem.maxEmitBox = new BABYLON.Vector3(10, 0.5, 10); // To...
+
+            particleSystem.minEmitBox = new BABYLON.Vector3(-2, 0, -2); // Starting all from
+            particleSystem.maxEmitBox = new BABYLON.Vector3(2, 0.5, 2); // To...
+
+            // Colors of all particles
+            particleSystem.color1 = new BABYLON.Color4(1, 1, 1.0, 1.0);
+            particleSystem.color2 = new BABYLON.Color4(1, 1, 1.0, 1.0);
+            particleSystem.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+            // Size of each particle (random between...
+            particleSystem.minSize = 30;
+            particleSystem.maxSize = 30;
+            
+            // Life time of each particle (random between...
+            particleSystem.minLifeTime = 2;
+            particleSystem.maxLifeTime = 2;
+
+            // Emission rate
+            particleSystem.emitRate = 30;
+
+            // Blend mode : BLENDMODE_ONEONE, or BLENDMODE_STANDARD
+            particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_STANDARD;    
+
+            // Direction of each particle after it has been emitted
+            particleSystem.direction1 = new BABYLON.Vector3(-0.5, 16, 0.5);
+            particleSystem.direction2 = new BABYLON.Vector3(0.5, 16, -0.5);
+
+            // Angular speed, in radians
+            particleSystem.minAngularSpeed = 0;
+            particleSystem.maxAngularSpeed = 0;
+
+            // Speed
+            particleSystem.minEmitPower = 3;
+            particleSystem.maxEmitPower = 3;
             particleSystem.updateSpeed = 0.01;
 
             // Start the particle system
@@ -929,7 +1022,7 @@
 
                     if(empurra && tackle){
                         if(empurraInitPosition && empurra.position.z < empurraInitPosition+10)
-                            empurra.position.z += 0.3;
+                            empurra.position.z += 0.3;  
                     }
 
                     if(principalSphere && !isUpToRepair)
