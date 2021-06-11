@@ -188,8 +188,6 @@
                         botaoMesh.addChild(mesh);
                         scene.registerBeforeRender(()=>{
                             let principalSphere = scene.getMeshByID("principalSphere");
-                            if(principalSphere && botaoAux.intersectsMesh(principalSphere, true))
-                                console.log("AOOOOO");
                             if(botaoAux && principalSphere && !pressed && (mesh.intersectsMesh(principalSphere, true) || botaoAux.intersectsMesh(principalSphere, true))){
                                 pressed = true;
                                 var doorOpen = new BABYLON.Sound("Music", "sounds/door.mp3", scene, null, {
