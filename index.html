@@ -61,6 +61,8 @@
         var pressed = false;
         var changeCamera = false;
 
+        var tampaTrava;
+
         var alturaInicial = 240;
 
         var spheres;
@@ -235,7 +237,10 @@
                                 }, 750);
                             }
                         })
-                    } else if(mesh.name.includes("Empurra")){
+                    } else if(mesh.name.includes("ParedaoInvisivel")){
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
+                        mesh.isVisible = false;
+                    }else if(mesh.name.includes("Empurra")){
                         empurraInitPosition=mesh.position.z;
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.SphereImpostor, { mass:0, friction:.001, restitution:0.5 }, scene);
                     } else if(mesh.name.includes("Escada1")){
@@ -313,6 +318,11 @@
             tampaCano.position.y = alturaInicial-225;
             tampaCano.position.z = 36;
             tampaCano.isVisible = false;
+
+            tampaTrava = BABYLON.Mesh.CreateBox("tampaTrava", 3, scene);
+            tampaTrava.position.y= tampaTrava.position.y = alturaInicial-232;
+            tampaTrava.position.z = 50;
+            tampaTrava.isVisible = false;
 
             botaoAux = BABYLON.Mesh.CreateBox("botaoAux", 4, scene);
             botaoAux.position.y = alturaInicial-203;
@@ -457,6 +467,7 @@
                 let principalSphere = scene.getMeshById("principalSphere");
                 let pressGround = scene.getMeshById("pressGround");
                 let containerSphere = scene.getMeshById("containerSphere");
+                
 
                 if(principalSphere && pressGround && containerSphere) {
 
@@ -504,6 +515,7 @@
                     console.log("Lose Reset");
                     resetScene();
                 }
+                
                 if(principalSphere && mapLimit.intersectsMesh(principalSphere, true)){
                     principalSphere.dispose();
                     if(lastBall){
@@ -512,6 +524,13 @@
                     }
                     console.log("Lose Reset");
                     resetScene();
+                }
+
+                let paredeTrava = scene.getMeshById("Cube.002");
+                let rampaTrava = scene.getMeshById("Cube.007");
+                if( !tampaTrava.physicsImpostor && principalSphere && tampaTrava && paredeTrava && rampaTrava && (paredeTrava.intersectsMesh(principalSphere, true) || rampaTrava.intersectsMesh(principalSphere, true))){
+                    console.log("AEE CASINÃO");
+                    tampaTrava.physicsImpostor = new BABYLON.PhysicsImpostor(tampaTrava, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
                 }
 
             })
@@ -602,8 +621,8 @@
             particleSystem.maxSize = 0.5;
             
             // Life time of each particle (random between...
-            particleSystem.minLifeTime = 3;
-            particleSystem.maxLifeTime = 3;
+            particleSystem.minLifeTime = 0.4;
+            particleSystem.maxLifeTime = 0.4;
 
             // Emission rate
             particleSystem.emitRate = 15;
@@ -779,6 +798,14 @@
             escada3Trigger = false;
             circleTrigger = false;
             funilTrigger = false;
+            
+            if(tampaTrava){
+                tampaTrava.dispose();
+                tampaTrava = BABYLON.Mesh.CreateBox("tampaTrava", 3, scene);
+                tampaTrava.position.y= tampaTrava.position.y = alturaInicial-232;
+                tampaTrava.position.z = 50;
+                tampaTrava.isVisible = false;
+            }
 
             //Destrói o path geral
             pathArr.forEach(mesh => {
@@ -818,6 +845,9 @@
                     } else if(mesh.name.includes("Empurra")){
                         empurraInitPosition=mesh.position.z;
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.SphereImpostor, { mass:0, friction:.001, restitution:0.5 }, scene);
+                    }else if(mesh.name.includes("ParedaoInvisivel")){
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1 }, scene);
+                        mesh.isVisible = false;
                     }else if(mesh.name.includes("Escada1")){
                         scene.registerBeforeRender(()=>{
                             let principalSphere = scene.getMeshById("principalSphere");
@@ -1019,8 +1049,9 @@
                     }
 
                     if(empurra && tackle){
-                        if(empurraInitPosition && empurra.position.z < empurraInitPosition+10)
-                            empurra.position.z += 0.3;  
+                        if(empurraInitPosition && empurra.position.z < empurraInitPosition+10)    
+                            empurra.position.z += 1.5;    
+                        //empurra.position.z += 0.35;  
                     }
 
                     if(principalSphere && !isUpToRepair)
