@@ -529,7 +529,6 @@
                 let paredeTrava = scene.getMeshById("Cube.002");
                 let rampaTrava = scene.getMeshById("Cube.007");
                 if( !tampaTrava.physicsImpostor && principalSphere && tampaTrava && paredeTrava && rampaTrava && (paredeTrava.intersectsMesh(principalSphere, true) || rampaTrava.intersectsMesh(principalSphere, true))){
-                    console.log("AEE CASINÃO");
                     tampaTrava.physicsImpostor = new BABYLON.PhysicsImpostor(tampaTrava, BABYLON.PhysicsImpostor.MeshImpostor, { mass:0, friction:1}, scene);
                 }
 
@@ -1049,9 +1048,8 @@
                     }
 
                     if(empurra && tackle){
-                        if(empurraInitPosition && empurra.position.z < empurraInitPosition+10)    
-                            empurra.position.z += 1.5;    
-                        //empurra.position.z += 0.35;  
+                        if(empurraInitPosition && empurra.position.z < empurraInitPosition+10)        
+                            empurra.position.z += 0.35;
                     }
 
                     if(principalSphere && !isUpToRepair)
